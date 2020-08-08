@@ -1,4 +1,4 @@
-# InventoryManagement
+# UserManagement
 
 How to start application 
 Application devided into two parts frontend angualr 7 server. backend node express server
