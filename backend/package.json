@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app",
+    "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "rashmi",
@@ -12,8 +12,11 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.2",
+    "composable-middleware": "^0.3.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.0.11"
+    "jwt-simple": "^0.5.6",
+    "mongoose": "^5.0.11",
+    "nodemon": "^2.0.4"
   }
 }

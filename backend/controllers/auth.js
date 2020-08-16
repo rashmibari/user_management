@@ -6,24 +6,43 @@ const jwt = require('jwt-simple');
 exports.register = function (req, res, next) {
 
     var user = new User({
-        full_name: req.body.full_name,
+        fullName: req.body.fullName,
         gender: req.body.gender,
         age: req.body.age,
         email: req.body.email,
         password: req.body.password,
     });
-    if (user.password) {
-        user.password = bcrypt.hashSync(user.password, 10);
-    }
+    User.findOne({
+        email: req.body.email
+    }, function (err, userResult) {
+        if (err) {
+            next(err);
+        } else {
+            console.log("userResult",userResult);
+            if (userResult) {
+                res.json({
+                    status: "error",
+                    message: "User already exits with this email.",
+                    data: null
+                });
+            } else {
+                if (user.password) {
+                    user.password = bcrypt.hashSync(user.password, 10);
+                }
+                user.save()
+                    .then(user => {
+                        res.send(user);
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: err.message || "Something wrong while creating the user."
+                        });
+                    });
+            }
+        }
+    });
 
-    user.save()
-        .then(user => {
-            res.send(user);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Something wrong while creating the user."
-            });
-        });
+
+
 };
 
 exports.login = function (req, res, next) {
@@ -33,8 +52,7 @@ exports.login = function (req, res, next) {
         if (err) {
             next(err);
         } else {
-            console.log(user.password);
-            if (bcrypt.compareSync(req.body.password, user.password)) {
+            if (user && bcrypt.compareSync(req.body.password, user.password)) {
                 var token = jwt.encode(user, 'secret', 'HS512');
                 res.json({
                     status: "success",

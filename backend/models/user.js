@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    full_name: {
+    fullName: {
         type: String,
         required: true
     },

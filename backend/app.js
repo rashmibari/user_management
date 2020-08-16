@@ -7,9 +7,14 @@ var auth = require('./routes/auth'); // Imports routes for the products
 var app = express();
 
 
+// let mongoUserId = 'rashmi';
+// let mongoPassword = 'rashmi123';
+// var dev_db_url = `mongodb://${mongoUserId}:${mongoPassword}@ds047325.mlab.com:47325/chat_bot`;
+
 // Set up mongoose connection
 var mongoose = require('mongoose');
 var dev_db_url = 'mongodb://localhost:27017/demo';
+
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
