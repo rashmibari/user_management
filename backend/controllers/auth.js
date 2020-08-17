@@ -18,7 +18,6 @@ exports.register = function (req, res, next) {
         if (err) {
             next(err);
         } else {
-            console.log("userResult",userResult);
             if (userResult) {
                 res.json({
                     status: "error",

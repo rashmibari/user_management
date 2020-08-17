@@ -3,17 +3,18 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var auth = require('./routes/auth'); // Imports routes for the products
+var auth = require('./routes/auth'); // Imports routes for the register and login
+var profile = require('./routes/profile');
 var app = express();
 
 
-// let mongoUserId = 'rashmi';
-// let mongoPassword = 'rashmi123';
-// var dev_db_url = `mongodb://${mongoUserId}:${mongoPassword}@ds047325.mlab.com:47325/chat_bot`;
+let mongoUserId = 'rashmi';
+let mongoPassword = 'rashmi123';
+var dev_db_url = `mongodb://${mongoUserId}:${mongoPassword}@ds047325.mlab.com:47325/chat_bot`;
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
-var dev_db_url = 'mongodb://localhost:27017/demo';
+//var dev_db_url = 'mongodb://localhost:27017/demo';
 
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB);
@@ -35,6 +36,8 @@ app.use(function (req, res, next) {
 });
 
 app.use('/auth', auth); //any routes that prefix with /auth go into auth routes
+app.use('/profile', profile);
+
 var port = 3000;
 
 app.listen(port, () => {
